@@ -9,10 +9,10 @@ url = f'http://{ip}:8000/code'
 
 while True:
     payload = {
+        "payload": "1000101001010011",
         "total_segments": "20",
         "segment_number": "3",
         "sender": "dan",
-        "payload": "1000101001010011",
         "time": str(datetime.now())
     }
 

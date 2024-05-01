@@ -1,0 +1,78 @@
+swagger: "2.0"
+info:
+  title: "Канальный уровень API"
+  description: "Описание метода канального уровня"
+  version: "1.1"
+basePath: "/api"
+schemes:
+  - "http"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+tags:
+  - name: Метод Code
+    description: Использование POST-метода Code
+paths:
+  /Code:
+    post:
+      tags:
+        - Метод Code
+      summary: "Метод Code"
+      description: "Метод для обработки сегмента данных"
+      parameters:
+        - in: body
+          name: body
+          description: "Сегмент данных для обработки"
+          required: true
+          schema:
+            type: object
+            properties:
+              payload:
+                type: string
+                description: "Данные сегмента"
+                example: "1000101001010011"
+              total_segments:
+                type: integer
+                description: "Общее количество сегментов"
+                example: "10"
+              segment_number:
+                type: integer
+                description: "Номер сегмента"
+                example: "3"
+              sender:
+                type: string
+                description: "Отправитель"
+                example: "client"
+              time:
+                type: string
+                format: date-time
+                description: "Время отправки"
+                example: "2024-04-24T12:00:00"
+      responses:
+        200:
+          description: "Успешный ответ"
+          schema:
+            type: object
+            properties:
+              payload:
+                type: string
+                description: "Декодированный сегмент данных"
+                example: "1000101001010011"
+              total_segments:
+                type: integer
+                description: "Общее количество сегментов"
+                example: "10"
+              segment_number:
+                type: integer
+                description: "Номер сегмента"
+                example: "3"
+              sender:
+                type: string
+                description: "Отправитель"
+                example: "client"
+              time:
+                type: string
+                format: date-time
+                description: "Время отправки"
+                example: "2024-04-24T12:00:01"
