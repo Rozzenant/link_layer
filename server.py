@@ -54,7 +54,10 @@ def run(ipv4, server_class=HTTPServer, handler_class=HttpHandler):
 
 
 if __name__ == '__main__':
-    ip = get_wireless_ip()
+    try:
+        ip = get_wireless_ip()
+    except ImportError:
+        ip = "127.0.0.1"
     print(f'Сервер запущен по адресу {ip}:8000...')
     run(ip)
     print('Сервер выключен')
