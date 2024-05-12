@@ -1,17 +1,26 @@
+import random
 import requests
 import json
 from datetime import datetime
 from network_ipv4 import get_wireless_ip
+
+
+def generate_random_binary():
+    while True:
+        yield str(random.randint(0, 1))
+
 
 ip = get_wireless_ip()
 url = f'http://{ip}:8000/code'
 
 
 while True:
+    random_gen = generate_random_binary()
+    message = ''.join([next(random_gen) for _ in range(random.randint(1, 1000))])
     payload = {
-        "payload": "1000101001010011",
-        "total_segments": "20",
-        "segment_number": "3",
+        "payload": f"{message}",
+        "total_segments": "1",
+        "segment_number": "1",
         "sender": "dan",
         "time": str(datetime.now())
     }

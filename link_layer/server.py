@@ -1,5 +1,9 @@
+import datetime
 from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
+
+import requests
+
 from network_ipv4 import get_wireless_ip
 from HammingFunc import *
 import json
@@ -21,6 +25,10 @@ class HttpHandler(BaseHTTPRequestHandler):
             error_segment = corrupt_hamming_code(encoded_segment)
             decoded_error_segment = decoding_hamming_code_7_4(error_segment, remainder)
 
+            if data['payload'] != decoded_error_segment:
+                if decoded_error_segment:
+                    raise ValueError("Несовпадение")
+
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
@@ -34,6 +42,16 @@ class HttpHandler(BaseHTTPRequestHandler):
                 "time": data['time']
             }
 
+            # data = requests.post("http://192.168.3.10:8000/transfer/", json=response_data)
+            # print(data)
+
+            response = requests.post("http://192.168.52.44:8000/transfer/", json=response_data)
+            if response.status_code == 200:
+                # print(f"Запрос к http://192.168.52.44:8000/transfer/ - Status 200\n")
+
+                if response.text.strip():
+                    print(json.dumps(response.json(), indent=4, ensure_ascii=False))
+
             response = json.dumps(response_data)
             self.wfile.write(response.encode('utf-8'))
 
@@ -41,7 +59,7 @@ class HttpHandler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
-            self.wfile.write('404')
+            # self.wfile.write('404')
 
 
 def run(ipv4, server_class=HTTPServer, handler_class=HttpHandler):
@@ -58,6 +76,6 @@ if __name__ == '__main__':
         ip = get_wireless_ip()
     except ImportError:
         ip = "127.0.0.1"
-    print(f'Сервер запущен по адресу {ip}:8000...')
+    print(f'Сервер запущен по адресу {ip}:8000...\n')
     run(ip)
     print('Сервер выключен')
