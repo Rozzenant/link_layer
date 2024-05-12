@@ -1,4 +1,3 @@
-import datetime
 from http.server import BaseHTTPRequestHandler
 from http.server import HTTPServer
 
@@ -59,7 +58,6 @@ class HttpHandler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
-            # self.wfile.write('404')
 
 
 def run(ipv4, server_class=HTTPServer, handler_class=HttpHandler):

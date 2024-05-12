@@ -53,7 +53,6 @@ def encoding_hamming_code_7_4(segment):
 
 
 def decoding_hamming_code_7_4(segment, remainder_):
-    # global lost_frames_counter
     if random.random() < FRAME_LOST_ODDS:
         print("Потеря кадра")
         return ""
