@@ -2,8 +2,8 @@ from datetime import datetime
 import requests
 
 payload = {
-    "total_segments": "20",
-    "segment_number": "3",
+    "total_segments": "1",
+    "segment_number": "1",
     "sender": "dan",
     "payload": "Привет, мир!",
     "time": str(datetime.now())
