@@ -17,7 +17,7 @@ class HttpHandler(BaseHTTPRequestHandler):
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length).decode('utf-8')
             data = json.loads(post_data)
-            print(data)
+            # print(data)
             # encoded_segment, remainder = encoding_hamming_code_7_4(''.join(f"{char:08b}" for char in data[
             #     'payload'].encode('utf-8')))
             encoded_segment, remainder = encoding_hamming_code_7_4(data['payload'])
